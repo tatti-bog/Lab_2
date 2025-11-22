@@ -93,8 +93,15 @@ public class Main {
         ```
 
 ### 2. Задача 2
-
-#### 4. Алгоритм
+Среди натуральных чисел, не превышающих 10^8, найдите количество чисел, соответствующих маске “7?*2?”, которые являются простыми.
+"?" заменяет ровно одну любую цифру
+"*" заменяет последовательность цифр любой длины (включая пустую последовательность)
+100 000 000 = 10^8 => максимальное число по маске это 
+ 79 999 929
+ 7? ___ _2?
+ т.е после ? и до двойки может быть максимум 4 цифры  
+ всего цифр в числе от 4 до 8
+#### 1. Алгоритм
 
 ##### Алгоритм выполнения программы:
 
@@ -102,8 +109,49 @@ public class Main {
   
 2. **Корректность ввода:**
    
-#### 5. Программа
+#### 2. Программа
+```java
+public class Main {
+    public static void main(String[] args) {
+        int count = 0;
 
+        for (int len = 4; len <= 8; len++) {
+
+            for (int digit1 = 0; digit1 <= 9; digit1++) {
+
+                for (int digit2 = 0; digit2 <= 9; digit2++) {
+
+                    int dlina_sr = len - 4; // from 0 to 4
+
+                    long chislo_min_seredina = (long)(7 * Math.pow(10, len - 1) + digit1 * Math.pow(10, len - 2) + 2 * 10 + digit2); // число целиком с минимальным значением середины
+                    double maks_seredina = (Math.pow(10, dlina_sr) - 1) * 100; // максимальное значение середины
+                    long chislo_maks_seredina = chislo_min_seredina + (long)(maks_seredina); // максимальное значение числа с такой серединой
+
+                    for (long num = chislo_min_seredina; num <= chislo_maks_seredina; num += 100) { //цикл от минимального значения числа с такой серединой и цифрами на местах до максимального
+                                                                                    //идем с шагом 100 тк последние две цифры в числе постоянные для конкретной середины
+                        if (isPrime(num)) {
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println("Количество чисел: " + count);
+    }
+
+    public static boolean isPrime(long n) {
+        if (n < 2) return false;
+        if (n == 2) return true;
+        if (n % 2 == 0) return false;
+
+        for (long i = 3; i * i <= n; i += 2) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+}
+```
 #### 6. Анализ правильности решения
 
 Программа работает корректно на всем множестве решений с учетом ограничений.
