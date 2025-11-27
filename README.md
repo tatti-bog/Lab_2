@@ -11,6 +11,7 @@
 - [Задача 1](#1-задача-1)
 - [Задача 2](#2-задача-2)
 - [Задача 3](#3-задача-3)
+- [Задача 4](#4-задача-4)
 
 ### 1. Задача 1
 
@@ -166,6 +167,63 @@ public class Main {
 #### 6. Анализ правильности решения
 
 ### 3. Задача 3
+
+#### 1. Алгоритм
+
+##### Алгоритм выполнения программы:
+
+1. **Ввод данных:**  
+  
+2. **Корректность ввода:**
+   
+#### 2. Программа
+```java
+import java.util.Scanner;
+public class Main {
+    public static Scanner in = new Scanner(System.in);
+    public static void main(String[] args) {
+        System.out.println("Какой долг по кредиту: ");
+        int d = in.nextInt();
+        System.out.println("Какой процент по кредиту: ");
+        int r = in.nextInt();
+        System.out.println("Какой платеж по кредиту: ");
+        int p = in.nextInt();
+
+         if (p <= d*r/100.0) {
+             System.out.println("NO");
+             return;
+         } // если платеж меньше начисленных процентов кредит не выплатить сразу no
+
+        int months = 0;
+        double currentDebt = (double)(d);
+        double lastPayment = 0;
+
+        while (currentDebt > 0) { 
+            currentDebt = currentDebt * (1 + r / 100.0);
+            months++;
+
+            if (currentDebt <= p) {
+                lastPayment = currentDebt;
+                currentDebt = 0;
+            }
+
+            else {
+                currentDebt -= p;
+                lastPayment = p;
+            }
+
+            if (months > 1000) {
+                System.out.println("NO");
+                return;
+            }
+        }
+
+        System.out.println(months + " " + Math.round(lastPayment));
+
+    }
+}
+```
+### 3. Задача 4
 
 #### 1. Алгоритм
 
