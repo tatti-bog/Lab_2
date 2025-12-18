@@ -239,23 +239,28 @@ public class Main {
 
     - **Input**:
         ```
-       
+        Какой долг по кредиту: 1000
+        Какой процент по кредиту: 1
+        Какой платеж по кредиту: 100
+
         ```
 
     - **Output**:
         ```
-      
+        11 59
         ```
 2. Тест на ``:
 
     - **Input**:
-        ```
-      
+      ```
+        Какой долг по кредиту: 5000
+        Какой процент по кредиту: 3
+        Какой платеж по кредиту: 150
         ```
 
     - **Output**:
         ```
-       
+        NO
         ```
 ### 4. Задача 4
 
@@ -269,3 +274,68 @@ public class Main {
    
 #### 2. Программа
 ```java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = scanner.nextInt();
+        int k = scanner.nextInt();
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        k = k % n;
+
+
+        for (int shift = 0; shift < k; shift++) {
+            int first = arr[0];
+            for (int i = 0; i < n - 1; i++) {
+                arr[i] = arr[i + 1];
+            }
+            arr[n - 1] = first;
+        }
+
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i]);
+            if (i < n - 1) {
+                System.out.print(" ");
+            }
+        }
+    }
+}
+```
+#### 3. Анализ правильности решения
+
+Программа работает корректно на всем множестве решений с учетом ограничений.
+
+1. Тест на ``:
+
+    - **Input**:
+        ```
+        7
+        2
+        1 2 3 4 5 6 7
+        ```
+
+    - **Output**:
+        ```
+        3 4 5 6 7 1 2
+        ```
+2. Тест на ``:
+
+    - **Input**:
+        ```
+        5
+        8
+        1 2 3 4 5
+        ```
+
+    - **Output**:
+        ```
+        4 5 1 2 3
+        ```
